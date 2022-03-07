@@ -25,11 +25,15 @@ public class EmployeeController {
     @Autowired
     EmployeesService employeesService;
 
+    @GetMapping("/")
+    public String getWelcomeMessage() {
+        return "Welcome to Employee Management System";
+    }
+
     @GetMapping("/employee/{id}")
-    public ResponseEntity<EmpDTO> getEmployeeById(@PathVariable int id) {
+    public ResponseEntity<EmpDTO> getEmployeeById(@PathVariable("id") int id) {
         Employee employee = employeesService.getEmployeeById(id);
         EmpDTO employeeResponse = modelMapper.map(employee, EmpDTO.class);
-
         return ResponseEntity.ok(employeeResponse);
     }
 
@@ -49,7 +53,7 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/employee/{id}")
+    @PutMapping("/employee/{id}")
     public ResponseEntity<EmpDTO> updateEmployeeById(@RequestBody EmpDTO empDTO, @PathVariable int id) {
         Employee empRequest = modelMapper.map(empDTO, Employee.class);
         Employee employee = employeesService.updateEmployee(id, empRequest);

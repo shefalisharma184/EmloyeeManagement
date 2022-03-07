@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-    @Query("SELECT emp FROM Employee emp WHERE emp.department = ?1 ORDER BY ID ASC")
+    @Query("SELECT employee FROM Employee employee WHERE employee.department = ?1 ORDER BY ID ASC")
     List<Employee> getEmployeesByDepartment(String department);
 }
